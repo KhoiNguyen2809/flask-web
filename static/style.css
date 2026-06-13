@@ -1,0 +1,31 @@
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f5f7fa;
+}
+
+header{
+    background:#1f4e79;
+    color:white;
+    text-align:center;
+    padding:40px;
+}
+
+section{
+    text-align:center;
+    margin-top:20px;
+}
+
+input{
+    width:60%;
+    padding:10px;
+    border-radius:10px;
+}
+
+button{
+    padding:12px 20px;
+    margin:5px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
