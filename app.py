@@ -1,15 +1,11 @@
-from flask import Flask
+from flask import Flask, render_template
 import os
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return """
-    <h1 style="font-size:50px; text-align:center;">
-    📚 Thư viện Đề Tuyển Sinh
-    </h1>
-    """
+    return render_template("index.html")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
