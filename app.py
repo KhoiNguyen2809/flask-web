@@ -48,13 +48,12 @@ def login():
         conn.close()
 
 if user:
-
     if username == "creator":
         return redirect("/creator")
 
     return f"Xin chào Admin {username}!"
 
-        return "Sai tài khoản hoặc mật khẩu"
+return "Sai tài khoản hoặc mật khẩu"
 
     return render_template("login.html")
 
