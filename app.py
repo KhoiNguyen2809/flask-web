@@ -92,6 +92,9 @@ def logout():
     session.clear()
 
     return redirect("/")
+@app.route("/routes")
+def routes():
+    return str(app.url_map)
 if __name__ == "__main__":
     init_db()
     port = int(os.environ.get("PORT", 5000))
