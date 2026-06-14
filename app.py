@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import sqlite3
 import os
 
@@ -48,11 +48,41 @@ def login():
         conn.close()
 
         if user:
-            return f"Xin chào {username}!"
+
+    if username == "creator":
+        return redirect("/creator")
+
+    return f"Xin chào Admin {username}!"
 
         return "Sai tài khoản hoặc mật khẩu"
 
     return render_template("login.html")
+
+@app.route("/creator", methods=["GET", "POST"])
+def creator():
+
+    if request.method == "POST":
+
+        username = request.form["username"]
+        password = request.form["password"]
+
+        conn = sqlite3.connect("database.db")
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+            INSERT INTO users(username, password)
+            VALUES (?, ?)
+            """,
+            (username, password)
+        )
+
+        conn.commit()
+        conn.close()
+
+        return f"Đã tạo admin: {username}"
+
+    return render_template("creator.html")
 
 if __name__ == "__main__":
     init_db()
