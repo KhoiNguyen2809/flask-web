@@ -61,7 +61,7 @@ def login():
 @app.route("/creator", methods=["GET", "POST"])
 def creator():
     if session.get("role") != "creator":
-    return "Không có quyền truy cập!"
+        return "Không có quyền truy cập!"
 
     if request.method == "POST":
 
