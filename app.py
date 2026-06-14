@@ -3,6 +3,25 @@ import sqlite3
 import os
 
 app = Flask(__name__)
+def init_db():
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT,
+        password TEXT
+    )
+    """)
+
+    cursor.execute("""
+    INSERT OR IGNORE INTO users (id, username, password)
+    VALUES (1, 'creator', '123456')
+    """)
+
+    conn.commit()
+    conn.close()
 
 @app.route("/")
 def home():
@@ -36,5 +55,6 @@ def login():
     return render_template("login.html")
 
 if __name__ == "__main__":
+    init_db()
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
