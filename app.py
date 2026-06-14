@@ -47,7 +47,7 @@ def login():
 
         conn.close()
 
-        if user:
+if user:
 
     if username == "creator":
         return redirect("/creator")
