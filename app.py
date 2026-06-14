@@ -17,6 +17,16 @@ def init_db():
     """)
 
     cursor.execute("""
+    CREATE TABLE IF NOT EXISTS exams (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        year INTEGER,
+        subject TEXT,
+        content TEXT
+    )
+    """)
+
+    cursor.execute("""
     INSERT OR IGNORE INTO users (id, username, password)
     VALUES (1, 'creator', '123456')
     """)
@@ -95,6 +105,38 @@ def logout():
 @app.route("/routes")
 def routes():
     return str(app.url_map)
+
+@app.route("/add_exam", methods=["GET", "POST"])
+def add_exam():
+
+    if session.get("role") != "creator":
+        return "Không có quyền truy cập!"
+
+    if request.method == "POST":
+
+        title = request.form["title"]
+        year = request.form["year"]
+        subject = request.form["subject"]
+        content = request.form["content"]
+
+        conn = sqlite3.connect("database.db")
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+            INSERT INTO exams(title, year, subject, content)
+            VALUES (?, ?, ?, ?)
+            """,
+            (title, year, subject, content)
+        )
+
+        conn.commit()
+        conn.close()
+
+        return "Đăng đề thành công!"
+
+    return render_template("add_exam.html")
+
 if __name__ == "__main__":
     init_db()
     port = int(os.environ.get("PORT", 5000))
