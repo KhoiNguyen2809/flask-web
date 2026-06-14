@@ -137,6 +137,25 @@ def add_exam():
 
     return render_template("add_exam.html")
 
+@app.route("/exams")
+def exams():
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT id, title, year, subject FROM exams ORDER BY id DESC"
+    )
+
+    exams = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        "exams.html",
+        exams=exams
+    )
+
 if __name__ == "__main__":
     init_db()
     port = int(os.environ.get("PORT", 5000))
