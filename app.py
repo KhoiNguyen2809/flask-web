@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 import sqlite3
 import os
 
 app = Flask(__name__)
+app.secret_key = "hoctotnhe_secret"
 def init_db():
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
@@ -49,6 +50,7 @@ def login():
 
         if user:
             if username == "creator":
+                session["role"] = "creator"
                 return redirect("/creator")
 
             return f"Xin chào Admin {username}!"
@@ -58,6 +60,8 @@ def login():
     return render_template("login.html")
 @app.route("/creator", methods=["GET", "POST"])
 def creator():
+    if session.get("role") != "creator":
+    return "Không có quyền truy cập!"
 
     if request.method == "POST":
 
@@ -82,6 +86,12 @@ def creator():
 
     return render_template("creator.html")
 
+@app.route("/logout")
+def logout():
+
+    session.clear()
+
+    return redirect("/")
 if __name__ == "__main__":
     init_db()
     port = int(os.environ.get("PORT", 5000))
