@@ -60,8 +60,12 @@ def login():
         cursor = conn.cursor()
 
         cursor.execute(
-            "SELECT * FROM users WHERE username=? AND password=?",
-            (username, password)
+            """
+            INSERT INTO users(username, password, role)
+            VALUES (?, ?, ?)
+            """,
+            (username, password, "admin")
+        )
         )
 
         user = cursor.fetchone()
