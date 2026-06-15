@@ -266,6 +266,34 @@ def edit_exam(exam_id):
         exam=exam
     )
 
+@app.route("/submit_exam", methods=["GET", "POST"])
+def submit_exam():
+
+    if request.method == "POST":
+
+        title = request.form["title"]
+        year = request.form["year"]
+        subject = request.form["subject"]
+        content = request.form["content"]
+
+        conn = sqlite3.connect("database.db")
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+            INSERT INTO pending_exams(title, year, subject, content)
+            VALUES (?, ?, ?, ?)
+            """,
+            (title, year, subject, content)
+        )
+
+        conn.commit()
+        conn.close()
+
+        return "Đã gửi đề thành công! Chờ duyệt."
+
+    return render_template("submit_exam.html")
+
 if __name__ == "__main__":
     init_db()
     port = int(os.environ.get("PORT", 5000))
