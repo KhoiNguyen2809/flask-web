@@ -320,6 +320,66 @@ def submit_exam():
 
     return render_template("submit_exam.html")
 
+@app.route("/approve_exam/<int:exam_id>")
+def approve_exam(exam_id):
+
+    if session.get("role") != "creator":
+        return "Không có quyền truy cập!"
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM pending_exams WHERE id=?",
+        (exam_id,)
+    )
+
+    exam = cursor.fetchone()
+
+    if exam:
+
+        cursor.execute(
+            """
+            INSERT INTO exams(title, year, subject, content)
+            VALUES (?, ?, ?, ?)
+            """,
+            (
+                exam[1],
+                exam[2],
+                exam[3],
+                exam[4]
+            )
+        )
+
+        cursor.execute(
+            "DELETE FROM pending_exams WHERE id=?",
+            (exam_id,)
+        )
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/pending")
+
+@app.route("/reject_exam/<int:exam_id>")
+def reject_exam(exam_id):
+
+    if session.get("role") != "creator":
+        return "Không có quyền truy cập!"
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "DELETE FROM pending_exams WHERE id=?",
+        (exam_id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/pending")
+
 if __name__ == "__main__":
     init_db()
     port = int(os.environ.get("PORT", 5000))
