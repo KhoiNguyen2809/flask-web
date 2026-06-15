@@ -15,6 +15,15 @@
     {{ exam[2] }}
     -
     {{ exam[3] }}
+
+    <a href="/approve_exam/{{ exam[0] }}">
+        ✅ Duyệt
+    </a>
+
+    <a href="/reject_exam/{{ exam[0] }}">
+        ❌ Từ chối
+    </a>
+
 </p>
 
 {% endfor %}
