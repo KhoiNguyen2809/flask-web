@@ -69,14 +69,20 @@ def login():
         conn.close()
 
         if user:
-            if username == "creator":
-                session["role"] = "creator"
-                return redirect("/creator")
 
-            return f"Xin chào Admin {username}!"
+    role = user[3]
 
-        return "Sai tài khoản hoặc mật khẩu"
+    session["role"] = role
 
+    if role == "creator":
+        return redirect("/creator")
+
+    if role == "admin":
+        return redirect("/admin")
+
+    return redirect("/")
+
+return "Sai tài khoản hoặc mật khẩu"
     return render_template("login.html")
 @app.route("/creator", methods=["GET", "POST"])
 def creator():
@@ -96,7 +102,7 @@ def creator():
             INSERT INTO users(username, password)
             VALUES (?, ?)
             """,
-            (username, password)
+            (username, password, "admin")
         )
 
         conn.commit()
