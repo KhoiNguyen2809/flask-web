@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gửi đề thi</title>
+</head>
+<body>
+
+<h1>📤 Gửi đề thi</h1>
+
+<form method="POST">
+
+    <p>Tên đề</p>
+    <input type="text" name="title" required>
+
+    <p>Năm</p>
+    <input type="number" name="year" required>
+
+    <p>Môn</p>
+    <input type="text" name="subject" required>
+
+    <p>Nội dung</p>
+    <textarea
+        name="content"
+        rows="10"
+        cols="60"
+    ></textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Gửi đề
+    </button>
+
+</form>
+
+</body>
+</html>
