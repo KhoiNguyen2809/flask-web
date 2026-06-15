@@ -68,7 +68,7 @@ def login():
 
         conn.close()
 
-        if user:
+if user:
 
     role = user[3]
 
