@@ -6,6 +6,21 @@
 <body>
 
 <h1>📚 Danh sách đề thi</h1>
+<form method="GET">
+
+    <input
+        type="text"
+        name="q"
+        placeholder="Tìm đề..."
+    >
+
+    <button type="submit">
+        Tìm kiếm
+    </button>
+
+</form>
+
+<br>
 
 {% for exam in exams %}
 
