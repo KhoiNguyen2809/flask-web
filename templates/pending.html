@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Đề chờ duyệt</title>
+</head>
+<body>
+
+<h1>⏳ Đề chờ duyệt</h1>
+
+{% for exam in exams %}
+
+<p>
+    {{ exam[1] }}
+    -
+    {{ exam[2] }}
+    -
+    {{ exam[3] }}
+</p>
+
+{% endfor %}
+
+</body>
+</html>
