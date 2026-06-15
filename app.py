@@ -106,6 +106,32 @@ def creator():
 
     return render_template("creator.html")
 
+@app.route("/pending")
+def pending():
+
+    if session.get("role") != "creator":
+        return "Không có quyền truy cập!"
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT id, title, year, subject
+        FROM pending_exams
+        ORDER BY id DESC
+        """
+    )
+
+    exams = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        "pending.html",
+        exams=exams
+    )
+
 @app.route("/logout")
 def logout():
 
