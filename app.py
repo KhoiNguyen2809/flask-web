@@ -60,46 +60,6 @@ def login():
         cursor = conn.cursor()
 
         cursor.execute(
-            """
-            INSERT INTO users(username, password, role)
-            VALUES (?, ?, ?)
-            """,
-            (username, password, "admin")
-        )
-        )
-
-        user = cursor.fetchone()
-
-        conn.close()
-
-        if user:
-
-            role = user[3]
-
-            session["role"] = role
-
-            if role == "creator":
-                return redirect("/creator")
-
-            if role == "admin":
-                return redirect("/admin")
-
-            return redirect("/")
-
-        return "Sai tài khoản hoặc mật khẩu"
-
-    return render_template("login.html")@app.route("/login", methods=["GET", "POST"])
-def login():
-
-    if request.method == "POST":
-
-        username = request.form["username"]
-        password = request.form["password"]
-
-        conn = sqlite3.connect("database.db")
-        cursor = conn.cursor()
-
-        cursor.execute(
             "SELECT * FROM users WHERE username=? AND password=?",
             (username, password)
         )
