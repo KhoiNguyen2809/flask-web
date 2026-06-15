@@ -140,11 +140,25 @@ def add_exam():
 @app.route("/exams")
 def exams():
 
+    q = request.args.get("q", "")
+
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT id, title, year, subject FROM exams ORDER BY id DESC"
+        """
+        SELECT id, title, year, subject
+        FROM exams
+        WHERE title LIKE ?
+        OR subject LIKE ?
+        OR CAST(year AS TEXT) LIKE ?
+        ORDER BY id DESC
+        """,
+        (
+            f"%{q}%",
+            f"%{q}%",
+            f"%{q}%"
+        )
     )
 
     exams = cursor.fetchall()
