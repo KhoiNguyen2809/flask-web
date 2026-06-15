@@ -10,7 +10,10 @@
 {% for exam in exams %}
 
 <p>
-    {{ exam[1] }}
+    <a href="/exam/{{ exam[0] }}">
+        {{ exam[1] }}
+    </a>
+
     -
     {{ exam[2] }}
     -
