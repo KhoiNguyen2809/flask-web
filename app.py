@@ -68,21 +68,21 @@ def login():
 
         conn.close()
 
-        if user:
+        iif user:
 
-            role = user[3]
+    role = user[3]
 
-            session["role"] = role
+    session["role"] = role
 
-            if role == "creator":
-                return redirect("/creator")
+    if role == "creator":
+        return redirect("/creator")
 
-            if role == "admin":
-                return redirect("/admin")
+    if role == "admin":
+        return redirect("/admin")
 
-            return redirect("/")
+    return redirect("/")
 
-        return "Sai tài khoản hoặc mật khẩu"
+return "Sai tài khoản hoặc mật khẩu"
 
     return render_template("login.html")
 @app.route("/creator", methods=["GET", "POST"])
