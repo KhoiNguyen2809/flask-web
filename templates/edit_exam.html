@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sửa đề</title>
+</head>
+<body>
+
+<h1>✏️ Sửa đề</h1>
+
+<form method="POST">
+
+    <p>Tên đề</p>
+    <input
+        type="text"
+        name="title"
+        value="{{ exam[1] }}"
+        required
+    >
+
+    <p>Năm</p>
+    <input
+        type="number"
+        name="year"
+        value="{{ exam[2] }}"
+        required
+    >
+
+    <p>Môn</p>
+    <input
+        type="text"
+        name="subject"
+        value="{{ exam[3] }}"
+        required
+    >
+
+    <p>Nội dung</p>
+
+    <textarea
+        name="content"
+        rows="15"
+        cols="60"
+    >{{ exam[4] }}</textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Lưu thay đổi
+    </button>
+
+</form>
+
+</body>
+</html>
