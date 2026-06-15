@@ -27,6 +27,16 @@ def init_db():
     """)
 
     cursor.execute("""
+    CREATE TABLE IF NOT EXISTS pending_exams (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        year INTEGER,
+        subject TEXT,
+        content TEXT
+    )
+    """)
+
+    cursor.execute("""
     INSERT OR IGNORE INTO users (id, username, password)
     VALUES (1, 'creator', '123456')
     """)
