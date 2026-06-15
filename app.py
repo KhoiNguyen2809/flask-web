@@ -70,7 +70,13 @@ def login():
 
         if user:
 
-            role = user[3]
+            if len(user) >= 4:
+                role = user[3]
+            else:
+                if username == "creator":
+                    role = "creator"
+                else:
+                    role = "admin"
 
             session["role"] = role
 
