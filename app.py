@@ -156,6 +156,29 @@ def exams():
         exams=exams
     )
 
+@app.route("/exam/<int:exam_id>")
+def exam_detail(exam_id):
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM exams WHERE id=?",
+        (exam_id,)
+    )
+
+    exam = cursor.fetchone()
+
+    conn.close()
+
+    if not exam:
+        return "Không tìm thấy đề"
+
+    return render_template(
+        "exam_detail.html",
+        exam=exam
+    )
+
 if __name__ == "__main__":
     init_db()
     port = int(os.environ.get("PORT", 5000))
