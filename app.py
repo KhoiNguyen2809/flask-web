@@ -179,6 +179,25 @@ def exam_detail(exam_id):
         exam=exam
     )
 
+@app.route("/delete_exam/<int:exam_id>")
+def delete_exam(exam_id):
+
+    if session.get("role") != "creator":
+        return "Không có quyền truy cập!"
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "DELETE FROM exams WHERE id=?",
+        (exam_id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/exams")
+
 if __name__ == "__main__":
     init_db()
     port = int(os.environ.get("PORT", 5000))
