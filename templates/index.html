@@ -1,44 +1,35 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Thư viện Đề Tuyển Sinh</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
 
-<header>
+<h1>📚 Thư viện Đề Tuyển Sinh</h1>
 
-    <h1>📚 THƯ VIỆN ĐỀ TUYỂN SINH</h1>
-
-    <p>
-        Chia sẻ đề tuyển sinh,
-        đề chuyên và tài liệu ôn tập.
-    </p>
-
-</header>
-
-<section>
+<form action="/exams" method="GET">
 
     <input
         type="text"
-        placeholder="🔍 Tìm kiếm đề..."
+        name="q"
+        placeholder="Tìm đề theo tên, môn hoặc năm..."
     >
 
-</section>
+    <button type="submit">
+        🔍 Tìm kiếm
+    </button>
 
-<section>
+</form>
 
-    <button>📚 Kho đề</button>
+<br>
 
-    <button>📤 Gửi đề</button>
+<p>
+    <a href="/exams">📚 Kho đề</a>
+</p>
 
-    <button>⭐ Feedback</button>
-
-</section>
+<p>
+    <a href="/submit_exam">📤 Gửi đề</a>
+</p>
 
 </body>
 </html>
