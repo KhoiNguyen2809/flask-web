@@ -176,7 +176,7 @@ def add_exam():
 @app.route("/exams")
 def exams():
 
-    q = request.args.get("q", "")
+    q = request.args.get("q", "").lower()
 
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
@@ -185,21 +185,33 @@ def exams():
         """
         SELECT id, title, year, subject
         FROM exams
-        WHERE LOWER(title) LIKE LOWER(?)
-        OR LOWER(subject) LIKE LOWER(?)
-        OR CAST(year AS TEXT) LIKE ?
         ORDER BY id DESC
-        """,
-        (
-            f"%{q}%",
-            f"%{q}%",
-            f"%{q}%"
-        )
+        """
     )
 
-    exams = cursor.fetchall()
+    all_exams = cursor.fetchall()
 
     conn.close()
+
+    if q:
+
+        exams = []
+
+        for exam in all_exams:
+
+            title = str(exam[1]).lower()
+            year = str(exam[2]).lower()
+            subject = str(exam[3]).lower()
+
+            if (
+                q in title
+                or q in year
+                or q in subject
+            ):
+                exams.append(exam)
+
+    else:
+        exams = all_exams
 
     return render_template(
         "exams.html",
