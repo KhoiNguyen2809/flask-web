@@ -185,8 +185,8 @@ def exams():
         """
         SELECT id, title, year, subject
         FROM exams
-        WHERE title LIKE ?
-        OR subject LIKE ?
+        WHERE LOWER(title) LIKE LOWER(?)
+        OR LOWER(subject) LIKE LOWER(?)
         OR CAST(year AS TEXT) LIKE ?
         ORDER BY id DESC
         """,
