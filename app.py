@@ -113,7 +113,7 @@ def creator():
 @app.route("/pending")
 def pending():
 
-    if session.get("role") != "creator":
+    if session.get("role") not in ["creator", "admin"]:
         return "Không có quyền truy cập!"
 
     conn = sqlite3.connect("database.db")
@@ -149,7 +149,7 @@ def routes():
 @app.route("/add_exam", methods=["GET", "POST"])
 def add_exam():
 
-    if session.get("role") != "creator":
+    if session.get("role") not in ["creator", "admin"]:
         return "Không có quyền truy cập!"
 
     if request.method == "POST":
@@ -248,7 +248,7 @@ def exam_detail(exam_id):
 @app.route("/delete_exam/<int:exam_id>")
 def delete_exam(exam_id):
 
-    if session.get("role") != "creator":
+    if session.get("role") not in ["creator", "admin"]:
         return "Không có quyền truy cập!"
 
     conn = sqlite3.connect("database.db")
@@ -267,7 +267,7 @@ def delete_exam(exam_id):
 @app.route("/edit_exam/<int:exam_id>", methods=["GET", "POST"])
 def edit_exam(exam_id):
 
-    if session.get("role") != "creator":
+    if session.get("role") not in ["creator", "admin"]:
         return "Không có quyền truy cập!"
 
     conn = sqlite3.connect("database.db")
@@ -339,7 +339,7 @@ def submit_exam():
 @app.route("/approve_exam/<int:exam_id>")
 def approve_exam(exam_id):
 
-    if session.get("role") != "creator":
+    if session.get("role") not in ["creator", "admin"]:
         return "Không có quyền truy cập!"
 
     conn = sqlite3.connect("database.db")
@@ -380,7 +380,7 @@ def approve_exam(exam_id):
 @app.route("/reject_exam/<int:exam_id>")
 def reject_exam(exam_id):
 
-    if session.get("role") != "creator":
+    if session.get("role") not in ["creator", "admin"]:
         return "Không có quyền truy cập!"
 
     conn = sqlite3.connect("database.db")
