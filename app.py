@@ -462,7 +462,10 @@ def feedback():
 
     if request.method == "POST":
 
-        name = request.form["name"]
+        name = request.form.get("name", "").strip()
+
+        if not name:
+            name = "Ẩn danh"
         message = request.form["message"]
 
         conn = sqlite3.connect("database.db")
