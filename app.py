@@ -20,6 +20,14 @@ def init_db():
     """)
 
     cursor.execute("""
+    CREATE TABLE IF NOT EXISTS feedback (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        message TEXT
+    )
+    """)
+
+    cursor.execute("""
     INSERT INTO users (username, password, role)
     VALUES ('creator', '123456', 'creator')
     """)
