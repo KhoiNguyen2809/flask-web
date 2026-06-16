@@ -8,13 +8,20 @@ def init_db():
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
+    cursor.execute("DROP TABLE IF EXISTS users")
+
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS users (
+    CREATE TABLE users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT UNIQUE,
         password TEXT,
         role TEXT
     )
+    """)
+
+    cursor.execute("""
+    INSERT INTO users (username, password, role)
+    VALUES ('creator', '123456', 'creator')
     """)
 
     cursor.execute("""
@@ -35,11 +42,6 @@ def init_db():
         subject TEXT,
         content TEXT
     )
-    """)
-
-    cursor.execute("""
-    INSERT OR IGNORE INTO users (id, username, password)
-    VALUES (1, 'creator', '123456')
     """)
 
     conn.commit()
