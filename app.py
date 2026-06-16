@@ -126,7 +126,38 @@ def creator():
 
         return f"Đã tạo admin: {username}"
 
-    return render_template("creator.html")
+    conn = sqlite3.connect("database.db")
+cursor = conn.cursor()
+
+cursor.execute("SELECT COUNT(*) FROM exams")
+total_exams = cursor.fetchone()[0]
+
+cursor.execute("SELECT COUNT(*) FROM pending_exams")
+pending_exams = cursor.fetchone()[0]
+
+cursor.execute("""
+    SELECT COUNT(*)
+    FROM feedback
+    WHERE status='pending'
+""")
+pending_feedbacks = cursor.fetchone()[0]
+
+cursor.execute("""
+    SELECT COUNT(*)
+    FROM users
+    WHERE role='admin'
+""")
+total_admins = cursor.fetchone()[0]
+
+conn.close()
+
+return render_template(
+    "creator.html",
+    total_exams=total_exams,
+    pending_exams=pending_exams,
+    pending_feedbacks=pending_feedbacks,
+    total_admins=total_admins
+)
 
 @app.route("/pending")
 def pending():
