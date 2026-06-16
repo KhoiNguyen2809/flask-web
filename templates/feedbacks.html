@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>💬 Feedback người dùng</h1>
+
+{% for fb in feedbacks %}
+
+<hr>
+
+<b>{{ fb[1] }}</b>
+
+<p>{{ fb[2] }}</p>
+
+{% endfor %}
+
+</body>
+</html>
