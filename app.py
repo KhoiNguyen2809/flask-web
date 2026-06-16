@@ -435,6 +435,18 @@ def delete_admin(id):
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
+    # Lấy username trước
+    cursor.execute(
+        "SELECT username FROM users WHERE id=?",
+        (id,)
+    )
+
+    user = cursor.fetchone()
+
+    if user and user[0] == "creator":
+        conn.close()
+        return "Không thể xóa Creator!"
+
     cursor.execute(
         "DELETE FROM users WHERE id=?",
         (id,)
