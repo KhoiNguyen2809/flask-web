@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Danh sách Admin</h1>
+
+{% for admin in admins %}
+
+<p>
+    {{ admin[1] }}
+
+    <a href="/delete_admin/{{ admin[0] }}">
+        ❌ Xóa
+    </a>
+</p>
+
+{% endfor %}
+
+</body>
+</html>
