@@ -55,6 +55,20 @@ def init_db():
     conn.commit()
     conn.close()
 
+    conn = sqlite3.connect("database.db")
+cursor = conn.cursor()
+
+try:
+    cursor.execute(
+        "ALTER TABLE feedback ADD COLUMN status TEXT DEFAULT 'pending'"
+    )
+    conn.commit()
+
+except:
+    pass
+
+conn.close()
+
 @app.route("/")
 def home():
     return render_template("index.html")
