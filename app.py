@@ -504,9 +504,11 @@ def feedbacks():
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT * FROM feedback
+         """
+         SELECT * FROM feedback
          WHERE status='pending'
-         ORDER BY id DESC"
+         ORDER BY id DESC
+         """
     )
 
     feedbacks = cursor.fetchall()
