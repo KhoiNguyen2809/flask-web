@@ -516,6 +516,26 @@ def feedbacks():
         feedbacks=feedbacks
     )
 
+@app.route("/update_feedback_db")
+def update_feedback_db():
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(
+            "ALTER TABLE feedback ADD COLUMN status TEXT DEFAULT 'pending'"
+        )
+
+        conn.commit()
+
+    except Exception as e:
+        print(e)
+
+    conn.close()
+
+    return "Database updated!"
+
 if __name__ == "__main__":
     init_db()
     port = int(os.environ.get("PORT", 5000))
