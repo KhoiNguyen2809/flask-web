@@ -504,7 +504,9 @@ def feedbacks():
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT * FROM feedback ORDER BY id DESC"
+        "SELECT * FROM feedback
+         WHERE status='pending'
+         ORDER BY id DESC"
     )
 
     feedbacks = cursor.fetchall()
@@ -515,6 +517,29 @@ def feedbacks():
         "feedbacks.html",
         feedbacks=feedbacks
     )
+
+@app.route("/resolve_feedback/<int:id>")
+def resolve_feedback(id):
+
+    if session.get("role") not in ["creator", "admin"]:
+        return "Không có quyền truy cập!"
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        UPDATE feedback
+        SET status='resolved'
+        WHERE id=?
+        """,
+        (id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/feedbacks")
 
 if __name__ == "__main__":
     init_db()
