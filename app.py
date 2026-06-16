@@ -396,6 +396,55 @@ def reject_exam(exam_id):
 
     return redirect("/pending")
 
+@app.route("/admin")
+def admin():
+
+    if session.get("role") != "admin":
+        return "Không có quyền truy cập!"
+
+    return render_template("admin.html")
+
+@app.route("/admins")
+def admins():
+
+    if session.get("role") != "creator":
+        return "Không có quyền truy cập!"
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT id, username FROM users WHERE role='admin'"
+    )
+
+    admins = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        "admins.html",
+        admins=admins
+    )
+
+@app.route("/delete_admin/<int:id>")
+def delete_admin(id):
+
+    if session.get("role") != "creator":
+        return "Không có quyền truy cập!"
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "DELETE FROM users WHERE id=?",
+        (id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/admins")
+
 if __name__ == "__main__":
     init_db()
     port = int(os.environ.get("PORT", 5000))
