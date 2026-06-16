@@ -486,6 +486,28 @@ def feedback():
 
     return render_template("feedback.html")
 
+@app.route("/feedbacks")
+def feedbacks():
+
+    if session.get("role") not in ["creator", "admin"]:
+        return "Không có quyền truy cập!"
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM feedback ORDER BY id DESC"
+    )
+
+    feedbacks = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        "feedbacks.html",
+        feedbacks=feedbacks
+    )
+
 if __name__ == "__main__":
     init_db()
     port = int(os.environ.get("PORT", 5000))
