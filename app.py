@@ -98,7 +98,7 @@ def creator():
         cursor.execute(
             """
             INSERT INTO users(username, password, role)
-            VALUES (?, ?)
+            VALUES (?, ?, ?)
             """,
             (username, password, "admin")
         )
