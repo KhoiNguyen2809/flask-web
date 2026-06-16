@@ -8,7 +8,12 @@
 
 <p>📚 Tổng số đề: {{ total_exams }}</p>
 
-<p>📥 Đề chờ duyệt: {{ pending_exams }}</p>
+<p>
+    📥 Đề chờ duyệt:
+    <a href="/pending">
+        {{ pending_exams }}
+    </a>
+</p>
 
 <p>💬 Feedback chưa xử lý: {{ pending_feedbacks }}</p>
 
