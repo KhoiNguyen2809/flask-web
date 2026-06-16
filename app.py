@@ -503,13 +503,11 @@ def feedbacks():
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
-    cursor.execute(
-         """
+    cursor.execute("""
          SELECT * FROM feedback
          WHERE status='pending'
          ORDER BY id DESC
-         """
-    )
+    """)
 
     feedbacks = cursor.fetchall()
 
