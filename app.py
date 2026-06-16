@@ -457,6 +457,32 @@ def delete_admin(id):
 
     return redirect("/admins")
 
+@app.route("/feedback", methods=["GET", "POST"])
+def feedback():
+
+    if request.method == "POST":
+
+        name = request.form["name"]
+        message = request.form["message"]
+
+        conn = sqlite3.connect("database.db")
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+            INSERT INTO feedback(name, message)
+            VALUES (?, ?)
+            """,
+            (name, message)
+        )
+
+        conn.commit()
+        conn.close()
+
+        return "Cảm ơn bạn đã góp ý!"
+
+    return render_template("feedback.html")
+
 if __name__ == "__main__":
     init_db()
     port = int(os.environ.get("PORT", 5000))
