@@ -505,7 +505,6 @@ def feedbacks():
 
     cursor.execute("""
          SELECT * FROM feedback
-         WHERE status='pending'
          ORDER BY id DESC
     """)
 
