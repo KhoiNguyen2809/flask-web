@@ -209,7 +209,6 @@ def creator():
     """)
     total_admins = cursor.fetchone()[0]
 
-     )
     cursor.execute("""
         SELECT title, views
         FROM exams
