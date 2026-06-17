@@ -40,7 +40,7 @@ def init_db():
         title TEXT,
         year INTEGER,
         subject TEXT,
-        content TEXT
+        content TEXT,
         views INTEGER DEFAULT 0
     )
     """)
