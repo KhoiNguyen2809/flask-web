@@ -180,6 +180,7 @@ def creator():
             VALUES (?, ?, ?)
             """,
             (username, password, "admin")
+        )
             
         conn.commit()
         conn.close()
