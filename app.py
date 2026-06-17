@@ -303,12 +303,18 @@ def exam_detail(exam_id):
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
-    cursor.execute(
-        "UPDATE exams SET views = views + 1 WHERE id=?",
-        (exam_id,)
-    )
+    view_key = f"viewed_{exam_id}"
 
-    conn.commit()
+    if not session.get(view_key):
+
+        cursor.execute(
+            "UPDATE exams SET views = views + 1 WHERE id=?",
+            (exam_id,)
+        )
+
+        conn.commit()
+
+        session[view_key] = True
 
     cursor.execute(
         "SELECT * FROM exams WHERE id=?",
