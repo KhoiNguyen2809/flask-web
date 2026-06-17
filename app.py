@@ -287,10 +287,22 @@ def add_exam():
 
         cursor.execute(
             """
-            INSERT INTO exams(title, year, subject, content)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO exams(
+                title,
+                year,
+                subject,
+                content,
+                file_path
+            )
+            VALUES (?, ?, ?, ?, ?)
             """,
-            (title, year, subject, content)
+            (
+                title,
+                year,
+                subject,
+                content,
+                filename
+            )
         )
 
         conn.commit()
