@@ -268,6 +268,19 @@ def add_exam():
         subject = request.form["subject"]
         content = request.form["content"]
         pdf = request.files["pdf"]
+        
+        filename = None
+
+        if pdf and pdf.filename:
+
+            filename = secure_filename(pdf.filename)
+
+            pdf.save(
+                os.path.join(
+                    "static/uploads",
+                    filename
+                )
+            )
 
         conn = sqlite3.connect("database.db")
         cursor = conn.cursor()
