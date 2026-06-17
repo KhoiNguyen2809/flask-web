@@ -60,6 +60,14 @@ def init_db():
     except:
         pass
 
+    try:
+        cursor.execute(
+            "ALTER TABLE exams ADD COLUMN views INTEGER DEFAULT 0"
+        )    
+        conn.commit()
+    except:
+        pass
+
     conn.commit()
     conn.close()
 
