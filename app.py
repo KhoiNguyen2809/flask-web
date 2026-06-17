@@ -180,8 +180,7 @@ def creator():
             VALUES (?, ?, ?)
             """,
             (username, password, "admin")
-        )
-
+            
         conn.commit()
         conn.close()
 
@@ -210,6 +209,16 @@ def creator():
     """)
     total_admins = cursor.fetchone()[0]
 
+     )
+    cursor.execute("""
+        SELECT title, views
+        FROM exams
+        ORDER BY views DESC
+        LIMIT 1
+     """)
+
+    top_exam = cursor.fetchone()
+
     conn.close()
 
     return render_template(
@@ -217,7 +226,8 @@ def creator():
         total_exams=total_exams,
         pending_exams=pending_exams,
         pending_feedbacks=pending_feedbacks,
-        total_admins=total_admins
+        total_admins=total_admins,
+        top_exam=top_exam
     )
 
 @app.route("/pending")
