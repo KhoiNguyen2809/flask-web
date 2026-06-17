@@ -573,14 +573,26 @@ def admin():
     """)
     total_admins = cursor.fetchone()[0]
 
-    conn.close()
+    cursor.execute("""
+        SELECT title, views
+        FROM exams
+        ORDER BY views DESC
+        LIMIT 1
+    """)
 
+top_exam = cursor.fetchone()
+
+conn.close()
+
+    conn.close()
+    
     return render_template(
         "admin.html",
         total_exams=total_exams,
         pending_exams=pending_exams,
         pending_feedbacks=pending_feedbacks,
-        total_admins=total_admins
+        total_admins=total_admins,
+        top_exam=top_exam
     )
 
 @app.route("/admins")
