@@ -18,9 +18,9 @@
 <p>
     <a
         href="{{ url_for('static', filename='uploads/' + exam[6]) }}"
-        target="_blank"
+        download
     >
-        📄 Xem PDF
+        📥 Tải PDF
     </a>
 </p>
 
@@ -28,14 +28,15 @@
 
 {% if exam[6] %}
 
-<p>
-    <a
-        href="{{ url_for('static', filename='uploads/' + exam[6]) }}"
-        download
-    >
-        📥 Tải PDF
-    </a>
-</p>
+<h3>📄 Đề gốc</h3>
+
+<iframe
+    src="{{ url_for('static', filename='uploads/' + exam[6]) }}"
+    width="100%"
+    height="900"
+    style="border:1px solid #ccc;"
+>
+</iframe>
 
 {% endif %}
 
