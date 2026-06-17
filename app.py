@@ -278,6 +278,13 @@ def exam_detail(exam_id):
     cursor = conn.cursor()
 
     cursor.execute(
+        "UPDATE exams SET views = views + 1 WHERE id=?",
+        (exam_id,)
+    )
+
+    conn.commit()
+
+    cursor.execute(
         "SELECT * FROM exams WHERE id=?",
         (exam_id,)
     )
