@@ -13,6 +13,32 @@
 
 <p>👁️ {{ exam[5] }} lượt xem</p>
 
+{% if exam[6] %}
+
+<p>
+    <a
+        href="{{ url_for('static', filename='uploads/' + exam[6]) }}"
+        target="_blank"
+    >
+        📄 Xem PDF
+    </a>
+</p>
+
+{% endif %}
+
+{% if exam[6] %}
+
+<p>
+    <a
+        href="{{ url_for('static', filename='uploads/' + exam[6]) }}"
+        download
+    >
+        📥 Tải PDF
+    </a>
+</p>
+
+{% endif %}
+
 <hr>
 
 <pre>{{ exam[4] }}</pre>
