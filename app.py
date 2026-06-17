@@ -547,7 +547,7 @@ def reject_exam(exam_id):
 @app.route("/admin")
 def admin():
 
-    if session.get("role") != "admin":
+    if session.get("role") not in ["creator", "admin"]:
         return "Không có quyền truy cập!"
 
     conn = sqlite3.connect("database.db")
