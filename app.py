@@ -267,6 +267,7 @@ def add_exam():
         year = request.form["year"]
         subject = request.form["subject"]
         content = request.form["content"]
+        pdf = request.files["pdf"]
 
         conn = sqlite3.connect("database.db")
         cursor = conn.cursor()
