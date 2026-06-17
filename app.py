@@ -652,6 +652,50 @@ def resolve_feedback(id):
 
     return redirect("/feedbacks")
 
+@app.route("/edit_exam/<int:exam_id>", methods=["GET", "POST"])
+def edit_exam(exam_id):
+
+    if session.get("role") not in ["creator", "admin"]:
+        return "Không có quyền truy cập!"
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    if request.method == "POST":
+
+        title = request.form["title"]
+        year = request.form["year"]
+        subject = request.form["subject"]
+        content = request.form["content"]
+
+        cursor.execute(
+            """
+            UPDATE exams
+            SET title=?, year=?, subject=?, content=?
+            WHERE id=?
+            """,
+            (title, year, subject, content, exam_id)
+        )
+
+        conn.commit()
+        conn.close()
+
+        return redirect("/exams")
+
+    cursor.execute(
+        "SELECT * FROM exams WHERE id=?",
+        (exam_id,)
+    )
+
+    exam = cursor.fetchone()
+
+    conn.close()
+
+    return render_template(
+        "edit_exam.html",
+        exam=exam
+    )
+
 if __name__ == "__main__":
     init_db()
     port = int(os.environ.get("PORT", 5000))
