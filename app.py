@@ -75,7 +75,25 @@ def init_db():
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM exams
+        ORDER BY views DESC
+        LIMIT 5
+    """)
+
+    top_exams = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        "index.html",
+        top_exams=top_exams
+    )
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
