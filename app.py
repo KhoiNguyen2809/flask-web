@@ -580,9 +580,7 @@ def admin():
         LIMIT 1
     """)
 
-top_exam = cursor.fetchone()
-
-conn.close()
+    top_exam = cursor.fetchone()
 
     conn.close()
     
