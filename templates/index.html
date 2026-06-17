@@ -23,6 +23,20 @@
 
 <br>
 
+<h2>🔥 Đề xem nhiều nhất</h2>
+
+{% for exam in top_exams %}
+
+    <p>
+        <a href="/exam/{{ exam[0] }}">
+            {{ exam[1] }}
+        </a>
+
+        (👁️ {{ exam[5] }})
+    </p>
+
+{% endfor %}
+
 <p>
     <a href="/exams">📚 Kho đề</a>
 </p>
