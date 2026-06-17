@@ -9,15 +9,21 @@
 
 <h2>📊 Thống kê</h2>
 
-<p>📥 Đề chờ duyệt: {{ pending_exams }}</p>
-
 <p>📚 Tổng số đề: {{ total_exams }}</p>
+
+<p>📥 Đề chờ duyệt: {{ pending_exams }}</p>
 
 <p>💬 Feedback chưa xử lý: {{ pending_feedbacks }}</p>
 
 <p>👥 Admin: {{ total_admins }}</p>
 
 <hr>
+
+<p>
+    <a href="/pending">
+        📥 Xem đề chờ duyệt
+    </a>
+</p>
 
 <p>
     <a href="/admins">
@@ -27,12 +33,6 @@
 
 <p>
     <a href="/feedbacks">💬 Xem Feedback</a>
-</p>
-
-<p>
-    <a href="/pending">
-        📥 Xem đề chờ duyệt
-    </a>
 </p>
 
 <p>
