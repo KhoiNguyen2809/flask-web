@@ -76,6 +76,14 @@ def init_db():
     except:
         pass
 
+    try:
+        cursor.execute(
+            "ALTER TABLE pending_exams ADD COLUMN file_path TEXT"
+        )
+        conn.commit()
+    except:
+        pass
+
     conn.commit()
     conn.close()
 
