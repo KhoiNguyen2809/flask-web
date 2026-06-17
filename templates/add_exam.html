@@ -7,7 +7,12 @@
 
 <h1>📚 Thêm đề thi</h1>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
+<input
+    type="file"
+    name="pdf"
+    accept=".pdf"
+>
 
     <p>Tên đề</p>
     <input type="text" name="title" required>
