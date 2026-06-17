@@ -17,11 +17,15 @@
 
 <p>👥 Admin: {{ total_admins }}</p>
 
+{% if top_exam %}
+
 <p>
 🔥 Đề hot nhất:
 {{ top_exam[0] }}
 (👁️ {{ top_exam[1] }})
 </p>
+
+{% endif %}
 
 
 <hr>
