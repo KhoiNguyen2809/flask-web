@@ -322,9 +322,17 @@ def add_exam():
         )
 
         conn.commit()
+    try:
+
+        cursor.execute(...)
+        conn.commit()
+
     except Exception as e:
 
         return str(e)
+
+    finally:
+
         conn.close()
 
         return "Đăng đề thành công!"
