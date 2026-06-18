@@ -279,10 +279,9 @@ def add_exam():
         subject = request.form["subject"]
         content = request.form["content"]
         school = request.form["school"]
-        
+
         pdf = request.files["pdf"]
-        
-        
+
         filename = None
 
         if pdf and pdf.filename:
@@ -322,19 +321,9 @@ def add_exam():
         )
 
         conn.commit()
-    try:
-
-        conn.commit()
-
-    except Exception as e:
-
-        return str(e)
-
-    finally:
-
         conn.close()
 
-    return "Đăng đề thành công!"
+        return "Đăng đề thành công!"
 
     return render_template("add_exam.html")
 
