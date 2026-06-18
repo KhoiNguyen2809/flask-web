@@ -324,7 +324,6 @@ def add_exam():
         conn.commit()
     try:
 
-        cursor.execute(...)
         conn.commit()
 
     except Exception as e:
@@ -335,7 +334,7 @@ def add_exam():
 
         conn.close()
 
-        return "Đăng đề thành công!"
+    return "Đăng đề thành công!"
 
     return render_template("add_exam.html")
 
