@@ -737,28 +737,7 @@ def resolve_feedback(id):
 
     return redirect("/feedbacks")
 
-@app.route("/update_school")
-def update_school():
 
-    conn = sqlite3.connect("database.db")
-    cursor = conn.cursor()
-
-    try:
-        cursor.execute(
-            "ALTER TABLE exams ADD COLUMN school TEXT"
-        )
-
-        conn.commit()
-
-        return "OK"
-
-    except Exception as e:
-
-        return str(e)
-
-    finally:
-
-        conn.close()
 
 if __name__ == "__main__":
     init_db()
