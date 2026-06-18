@@ -278,7 +278,10 @@ def add_exam():
         year = request.form["year"]
         subject = request.form["subject"]
         content = request.form["content"]
+        school = request.form["school"]
+        
         pdf = request.files["pdf"]
+        
         
         filename = None
 
@@ -303,15 +306,17 @@ def add_exam():
                 year,
                 subject,
                 content,
+                school,
                 file_path
             )
-            VALUES (?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?)
             """,
             (
                 title,
                 year,
                 subject,
                 content,
+                school,
                 filename
             )
         )
