@@ -17,10 +17,15 @@
 
 <p>👥 Admin: {{ total_admins }}</p>
 
-<p>TOP_EXAM = {{ top_exam }}</p>
+{% if top_exam is not none %}
 
+<p>
+🔥 Đề hot nhất:
+{{ top_exam[0] }}
+(👁️ {{ top_exam[1] }})
+</p>
 
-<hr>
+{% endif %}
 
 <p>
     <a href="/pending">
