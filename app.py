@@ -103,6 +103,14 @@ def init_db():
     except:
         pass
 
+    try:
+        cursor.execute(
+            "ALTER TABLE exams ADD COLUMN school TEXT"
+        )
+        conn.commit()
+    except:
+        pass
+
     conn.commit()
     conn.close()
 
