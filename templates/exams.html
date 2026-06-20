@@ -13,6 +13,21 @@
         name="q"
         placeholder="Tìm đề..."
     >
+    <select name="school">
+
+        <option value="">
+            Tất cả trường
+        </option>
+
+        {% for school in schools %}
+
+        <option value="{{ school[0] }}">
+            {{ school[0] }}
+        </option>
+
+        {% endfor %}
+
+    </select>
 
     <button type="submit">
         Tìm kiếm
