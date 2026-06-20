@@ -339,17 +339,24 @@ def add_exam():
 def exams():
 
     q = request.args.get("q", "").lower()
+    school_filter = request.args.get(
+        "school",
+        ""
+    ).lower()
 
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
-    cursor.execute(
-        """
-        SELECT id, title, year, subject
+    cursor.execute("""
+        SELECT
+            id,
+            title,
+            year,
+            subject,
+            school
         FROM exams
         ORDER BY id DESC
-        """
-    )
+    """)
 
     all_exams = cursor.fetchall()
 
@@ -364,12 +371,21 @@ def exams():
             title = str(exam[1]).lower()
             year = str(exam[2]).lower()
             subject = str(exam[3]).lower()
+            school = str(exam[4]).lower()
 
-            if (
-                q in title
+            match_search = (
+                q == ""
+                or q in title
                 or q in year
                 or q in subject
-            ):
+            )
+
+            match_school = (
+                school_filter == ""
+                or school_filter in school
+            )
+
+            if match_search and match_school:
                 exams.append(exam)
 
     else:
